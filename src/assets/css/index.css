@@ -12,6 +12,6 @@
 /* # Card Main */
 
 .card-main {
-    width: 25rem;
+    max-width: 25rem;
   }
   

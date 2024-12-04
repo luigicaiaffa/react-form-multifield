@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import placeHolder from "./assets/img/placeholder-600x400.png";
+
 function App() {
-
-
   const [articleFormInput, setArticleFormInput] = useState({
     title: "",
     author: "",
@@ -43,12 +43,11 @@ function App() {
 
   const modifyArticle = (id) => {
     const updatedList = [...articlesData];
-    newArticleTitle && newArticleAuthor
-      ? (updatedList[id] = { title: newArticleTitle, author: newArticleAuthor })
+    articleFormInput
+      ? (updatedList[id] = articleFormInput)
       : alert("Nessun valore inserito");
+
     setArticlesData(updatedList);
-    setNewArticleTitle("");
-    setNewArticleAuthor("");
   };
 
   return (
@@ -95,7 +94,6 @@ function App() {
                     {/* Img Input */}
                     <div className="col-md-8">
                       <input
-                        required
                         name="image"
                         type="text"
                         className="form-control"
@@ -114,7 +112,11 @@ function App() {
                         onChange={handleInputChange}
                       >
                         <option>Categoria</option>
-                        <option>...</option>
+                        <option>Uno</option>
+                        <option>Due</option>
+                        <option>Tre</option>
+                        <option>Quattro</option>
+                        <option>Cinque</option>
                       </select>
                     </div>
 
@@ -129,6 +131,14 @@ function App() {
                         onChange={handleInputChange}
                       />
                     </div>
+
+                    {articlesData.length > 0 && (
+                      <div className="form-text mt-2">
+                        &#45; modificare un articolo: inserire i nuovi dati nel
+                        form e cliccare sul bottone di modifica dell'articolo
+                        interessato
+                      </div>
+                    )}
 
                     <div className="col-12 d-flex">
                       <div>
@@ -160,44 +170,46 @@ function App() {
 
             {/* Articles Section */}
             <section>
-              <ul className="list-group">
+              <div className="row g-5 justify-content-between">
                 {articlesData.map((article, i) => {
                   return (
-                    <li key={i} className="list-group-item">
-                      <div className="d-flex justify-content-between">
-                        <div>
-                          <div className="fw-bold">{article.title}</div>
-                          <span>
-                            <i>&#45; {article.author}</i>
-                          </span>
-                        </div>
-                        <div>
-                          <button
-                            className="btn btn-warning mx-1"
-                            onClick={() => modifyArticle(i)}
-                          >
-                            <i className="fa-solid fa-pencil"></i>
-                          </button>
-                          <button
-                            className="btn btn-danger mx-1"
-                            onClick={() => deleteArticle(i)}
-                          >
-                            <i className="fa-solid fa-trash"></i>
-                          </button>
+                    <div className="col-md-6 col-lg-4">
+                      <div className="card card-main">
+                        <img
+                          src={article.image || placeHolder}
+                          className="card-img-top"
+                          alt="img"
+                        />
+                        <div className="card-body">
+                          <div>
+                            <span>{article.category}</span>
+                            <h5 className="card-title">{article.title}</h5>
+                            <span>
+                              <i>&#45; {article.author}</i>
+                            </span>
+                            <p className="card-text pb-2">{article.content}</p>
+                          </div>
+                          <div className="d-flex justify-content-end">
+                            <button
+                              className="btn btn-warning mx-1"
+                              onClick={() => modifyArticle(i)}
+                            >
+                              <i className="fa-solid fa-pencil"></i>
+                            </button>
+                            <button
+                              className="btn btn-danger mx-1"
+                              onClick={() => deleteArticle(i)}
+                            >
+                              <i className="fa-solid fa-trash"></i>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </li>
+                    </div>
                   );
                 })}
-              </ul>
-            </section>
-
-            {articlesData.length > 0 && (
-              <div className="form-text px-4 m-2">
-                modificare un articolo: inserire i nuovi dati nel form e
-                cliccare sul bottone di modifica dell'articolo interessato
               </div>
-            )}
+            </section>
           </div>
         </main>
       </div>
