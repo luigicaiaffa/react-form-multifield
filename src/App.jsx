@@ -23,6 +23,7 @@ function App() {
       ...articleFormInput,
       [e.target.name]: value,
     });
+
     console.log(articleFormInput);
   };
 
@@ -111,7 +112,9 @@ function App() {
                         value={articleFormInput.category}
                         onChange={handleInputChange}
                       >
-                        <option value={null}>Categoria</option>
+                        <option value="" disabled>
+                          Categoria
+                        </option>
                         <option value={"Uno"}>Uno</option>
                         <option value={"Due"}>Due</option>
                         <option value={"Tre"}>Tre</option>
@@ -198,9 +201,9 @@ function App() {
                               <div>
                                 <span>
                                   {article.pubblished ? (
-                                    <i class="fa-solid fa-square-check pubblished-status"></i>
+                                    <i className="fa-solid fa-square-check pubblished-status"></i>
                                   ) : (
-                                    <i class="fa-solid fa-square-xmark pubblished-status"></i>
+                                    <i className="fa-solid fa-square-xmark pubblished-status"></i>
                                   )}
                                 </span>
                               </div>
