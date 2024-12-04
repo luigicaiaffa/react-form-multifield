@@ -13,5 +13,9 @@
 
 .card-main {
     max-width: 25rem;
-  }
+}
   
+.pubblished-status {
+    position: absolute;
+    bottom: 1rem;
+}

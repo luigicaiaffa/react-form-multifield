@@ -111,7 +111,7 @@ function App() {
                         value={articleFormInput.category}
                         onChange={handleInputChange}
                       >
-                        <option>Categoria</option>
+                        <option value={null}>Categoria</option>
                         <option value={"Uno"}>Uno</option>
                         <option value={"Due"}>Due</option>
                         <option value={"Tre"}>Tre</option>
@@ -183,7 +183,9 @@ function App() {
                           />
                           <div className="card-body">
                             <div>
-                              <span>{article.category}</span>
+                              <span className="form-text">
+                                {article.category}
+                              </span>
                               <h5 className="card-title">{article.title}</h5>
                               <span>
                                 <i>&#45; {article.author}</i>
@@ -192,19 +194,30 @@ function App() {
                                 {article.content}
                               </p>
                             </div>
-                            <div className="d-flex justify-content-end">
-                              <button
-                                className="btn btn-warning mx-1"
-                                onClick={() => modifyArticle(i)}
-                              >
-                                <i className="fa-solid fa-pencil"></i>
-                              </button>
-                              <button
-                                className="btn btn-danger mx-1"
-                                onClick={() => deleteArticle(i)}
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
+                            <div className="d-flex justify-content-between">
+                              <div>
+                                <span>
+                                  {article.pubblished ? (
+                                    <i class="fa-solid fa-square-check pubblished-status"></i>
+                                  ) : (
+                                    <i class="fa-solid fa-square-xmark pubblished-status"></i>
+                                  )}
+                                </span>
+                              </div>
+                              <div>
+                                <button
+                                  className="btn btn-warning mx-1"
+                                  onClick={() => modifyArticle(i)}
+                                >
+                                  <i className="fa-solid fa-pencil"></i>
+                                </button>
+                                <button
+                                  className="btn btn-danger mx-1"
+                                  onClick={() => deleteArticle(i)}
+                                >
+                                  <i className="fa-solid fa-trash"></i>
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
