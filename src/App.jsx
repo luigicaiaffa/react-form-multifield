@@ -2,27 +2,38 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  const [newArticleTitle, setNewArticleTitle] = useState("");
-  const [newArticleAuthor, setNewArticleAuthor] = useState("");
+
+
+  const [articleFormInput, setArticleFormInput] = useState({
+    title: "",
+    author: "",
+    image: "",
+    category: "",
+    content: "",
+    pubblished: false,
+  });
+
   const [articlesData, setArticlesData] = useState([]);
 
-  const handleInputTitleChange = (e) => {
-    setNewArticleTitle(e.target.value);
-  };
+  const handleInputChange = (e) => {
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
-  const handleInputAuthorChange = (e) => {
-    setNewArticleAuthor(e.target.value);
+    setArticleFormInput({
+      ...articleFormInput,
+      [e.target.name]: value,
+    });
+    console.log(articleFormInput);
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const articleList = [...articlesData];
-    newArticleTitle && newArticleAuthor
-      ? articleList.push({ title: newArticleTitle, author: newArticleAuthor })
+    articleFormInput
+      ? articleList.push(articleFormInput)
       : alert("Nessun valore inserito");
+
     setArticlesData(articleList);
-    setNewArticleTitle("");
-    setNewArticleAuthor("");
   };
 
   const deleteArticle = (id) => {
@@ -42,91 +53,112 @@ function App() {
 
   return (
     <>
-      <div className="wrapper bg-dark">
-        <main className="py-5">
+      <div className="wrapper">
+        <main>
           <div className="container">
-            <div className="card">
-              <div className="card-header">
-                <h1 className="fw-bold fs-4">Inserisci i dati dell'articolo</h1>
-              </div>
-              <div className="card-body">
-                <form className="row g-3" onSubmit={handleFormSubmit}>
-                  {/* Title Input */}
-                  <div className="col-md-6">
-                    <input
-                      required
-                      type="text"
-                      className="form-control"
-                      placeholder="Titolo"
-                      value={newArticleTitle}
-                      onChange={handleInputTitleChange}
-                    />
-                  </div>
-
-                  {/* Author Input */}
-                  <div className="col-md-6">
-                    <input
-                      required
-                      type="text"
-                      className="form-control"
-                      placeholder="Autore"
-                      value={newArticleAuthor}
-                      onChange={handleInputAuthorChange}
-                    />
-                  </div>
-
-                  {/* Img Input */}
-                  <div className="col-md-8">
-                    <input
-                      required
-                      type="text"
-                      className="form-control"
-                      placeholder="Immagine"
-                    />
-                  </div>
-
-                  {/* Category Select */}
-                  <div className="col-md-4">
-                    <select className="form-select">
-                      <option>Categoria</option>
-                      <option>...</option>
-                    </select>
-                  </div>
-
-                  {/* Content Input */}
-                  <div className="col-12">
-                    <textarea
-                      type="text"
-                      className="form-control"
-                      placeholder="Contenuto"
-                    />
-                  </div>
-
-                  <div className="col-12 d-flex">
-                    <div>
-                      {/* Submit Button */}
-                      <button type="submit" className="btn btn-success">
-                        <i className="fa-solid fa-plus fa-xl"></i>
-                      </button>
-                    </div>
-
-                    <div className="form-check mx-3">
-                      {/* Published Check */}
+            {/* Form Section */}
+            <section className="py-5">
+              <div className="card">
+                <div className="card-header">
+                  <h1 className="fw-bold fs-4">
+                    Inserisci i dati dell'articolo
+                  </h1>
+                </div>
+                <div className="card-body">
+                  <form className="row g-3" onSubmit={handleFormSubmit}>
+                    {/* Title Input */}
+                    <div className="col-md-6">
                       <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="pubCheck"
+                        required
+                        name="title"
+                        type="text"
+                        className="form-control"
+                        placeholder="Titolo"
+                        value={articleFormInput.title}
+                        onChange={handleInputChange}
                       />
-                      <label className="form-check-label" htmlFor="pubCheck">
-                        Pubblicato
-                      </label>
                     </div>
-                  </div>
-                </form>
-              </div>
-            </div>
 
-            {/* Articles list */}
+                    {/* Author Input */}
+                    <div className="col-md-6">
+                      <input
+                        required
+                        name="author"
+                        type="text"
+                        className="form-control"
+                        placeholder="Autore"
+                        value={articleFormInput.author}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+
+                    {/* Img Input */}
+                    <div className="col-md-8">
+                      <input
+                        required
+                        name="image"
+                        type="text"
+                        className="form-control"
+                        placeholder="Immagine"
+                        value={articleFormInput.image}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+
+                    {/* Category Select */}
+                    <div className="col-md-4">
+                      <select
+                        name="category"
+                        className="form-select"
+                        value={articleFormInput.category}
+                        onChange={handleInputChange}
+                      >
+                        <option>Categoria</option>
+                        <option>...</option>
+                      </select>
+                    </div>
+
+                    {/* Content Input */}
+                    <div className="col-12">
+                      <textarea
+                        name="content"
+                        type="text"
+                        className="form-control"
+                        placeholder="Contenuto"
+                        value={articleFormInput.content}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+
+                    <div className="col-12 d-flex">
+                      <div>
+                        {/* Submit Button */}
+                        <button type="submit" className="btn btn-success">
+                          <i className="fa-solid fa-plus fa-xl"></i>
+                        </button>
+                      </div>
+
+                      <div className="form-check mx-3">
+                        {/* Published Check */}
+                        <input
+                          name="pubblished"
+                          className="form-check-input"
+                          type="checkbox"
+                          id="pubCheck"
+                          checked={articleFormInput.pubblished}
+                          onChange={handleInputChange}
+                        />
+                        <label className="form-check-label" htmlFor="pubCheck">
+                          Pubblicato
+                        </label>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </section>
+
+            {/* Articles Section */}
             <section>
               <ul className="list-group">
                 {articlesData.map((article, i) => {
