@@ -112,11 +112,11 @@ function App() {
                         onChange={handleInputChange}
                       >
                         <option>Categoria</option>
-                        <option>Uno</option>
-                        <option>Due</option>
-                        <option>Tre</option>
-                        <option>Quattro</option>
-                        <option>Cinque</option>
+                        <option value={"Uno"}>Uno</option>
+                        <option value={"Due"}>Due</option>
+                        <option value={"Tre"}>Tre</option>
+                        <option value={"Quattro"}>Quattro</option>
+                        <option value={"Cinque"}>Cinque</option>
                       </select>
                     </div>
 
@@ -170,44 +170,47 @@ function App() {
 
             {/* Articles Section */}
             <section>
-              <div className="row g-5 justify-content-between">
-                {articlesData.map((article, i) => {
-                  return (
-                    <div className="col-md-6 col-lg-4">
-                      <div className="card card-main">
-                        <img
-                          src={article.image || placeHolder}
-                          className="card-img-top"
-                          alt="img"
-                        />
-                        <div className="card-body">
-                          <div>
-                            <span>{article.category}</span>
-                            <h5 className="card-title">{article.title}</h5>
-                            <span>
-                              <i>&#45; {article.author}</i>
-                            </span>
-                            <p className="card-text pb-2">{article.content}</p>
-                          </div>
-                          <div className="d-flex justify-content-end">
-                            <button
-                              className="btn btn-warning mx-1"
-                              onClick={() => modifyArticle(i)}
-                            >
-                              <i className="fa-solid fa-pencil"></i>
-                            </button>
-                            <button
-                              className="btn btn-danger mx-1"
-                              onClick={() => deleteArticle(i)}
-                            >
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
+              <div className="row g-5 justify-content-around">
+                {articleFormInput &&
+                  articlesData.map((article, i) => {
+                    return (
+                      <div key={i} className="col-md-6 col-lg-4">
+                        <div className="card card-main">
+                          <img
+                            src={article.image || placeHolder}
+                            className="card-img-top"
+                            alt="img"
+                          />
+                          <div className="card-body">
+                            <div>
+                              <span>{article.category}</span>
+                              <h5 className="card-title">{article.title}</h5>
+                              <span>
+                                <i>&#45; {article.author}</i>
+                              </span>
+                              <p className="card-text pb-2">
+                                {article.content}
+                              </p>
+                            </div>
+                            <div className="d-flex justify-content-end">
+                              <button
+                                className="btn btn-warning mx-1"
+                                onClick={() => modifyArticle(i)}
+                              >
+                                <i className="fa-solid fa-pencil"></i>
+                              </button>
+                              <button
+                                className="btn btn-danger mx-1"
+                                onClick={() => deleteArticle(i)}
+                              >
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
               </div>
             </section>
           </div>
