@@ -3,15 +3,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import placeHolder from "./assets/img/placeholder-600x400.png";
 
+const defaultFormValue = {
+  title: "",
+  author: "",
+  image: "",
+  category: "",
+  content: "",
+  pubblished: false,
+};
+
 function App() {
-  const [articleFormInput, setArticleFormInput] = useState({
-    title: "",
-    author: "",
-    image: "",
-    category: "",
-    content: "",
-    pubblished: false,
-  });
+  const [articleFormInput, setArticleFormInput] = useState(defaultFormValue);
 
   const [articlesData, setArticlesData] = useState([]);
 
@@ -35,6 +37,7 @@ function App() {
       : alert("Nessun valore inserito");
 
     setArticlesData(articleList);
+    setArticleFormInput(defaultFormValue);
   };
 
   const deleteArticle = (id) => {
@@ -49,6 +52,7 @@ function App() {
       : alert("Nessun valore inserito");
 
     setArticlesData(updatedList);
+    setArticleFormInput(defaultFormValue);
   };
 
   return (
@@ -107,6 +111,7 @@ function App() {
                     {/* Category Select */}
                     <div className="col-md-4">
                       <select
+                        required
                         name="category"
                         className="form-select"
                         value={articleFormInput.category}
@@ -153,15 +158,14 @@ function App() {
 
                       <div className="form-check mx-3">
                         {/* Published Check */}
-                        <input
-                          name="pubblished"
-                          className="form-check-input"
-                          type="checkbox"
-                          id="pubCheck"
-                          checked={articleFormInput.pubblished}
-                          onChange={handleInputChange}
-                        />
-                        <label className="form-check-label" htmlFor="pubCheck">
+                        <label className="form-check-label">
+                          <input
+                            name="pubblished"
+                            className="form-check-input me-2"
+                            type="checkbox"
+                            checked={articleFormInput.pubblished}
+                            onChange={handleInputChange}
+                          />
                           Pubblicato
                         </label>
                       </div>
@@ -173,7 +177,7 @@ function App() {
 
             {/* Articles Section */}
             <section>
-              <div className="row g-5 justify-content-around">
+              <div className="row g-5 justify-content-around pb-5">
                 {articleFormInput &&
                   articlesData.map((article, i) => {
                     return (
